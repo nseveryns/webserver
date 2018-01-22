@@ -3,6 +3,7 @@ package messages
 import (
 	"errors"
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -32,7 +33,7 @@ func getFlags(unparsed string) map[string]string {
 	for _, element := range lines {
 		pair := strings.Split(element, ": ")
 		if len(pair) > 2 {
-			fmt.Println("Invalid content flag.", element)
+			log.Println("Invalid content flag.", element)
 			break
 		}
 		flags[pair[0]] = pair[1]

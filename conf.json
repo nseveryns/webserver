@@ -1,0 +1,7 @@
+{
+   "Port":8080,
+   "Static":true,
+   "Directory":"./",
+   "ErrorPage":"error.html",
+   "LandingPage":"index.html"
+}

@@ -2,6 +2,7 @@ package messages
 
 import (
 	"fmt"
+	"log"
 	"strings"
 )
 
@@ -33,18 +34,15 @@ type ResponseMessage struct {
 	Message string
 }
 
+//TODO Less hard coding would be nice
 func ReadRequestMessage(raw string) *RequestMessage {
-	fmt.Println(raw)
 	split := strings.Split(raw, " ")
-	fmt.Println(split[0])
 	method, err := getMethod(split[0])
 	if err != nil {
-		fmt.Println("Invalid Method: ", split[0], err)
+		log.Println("Invalid Method: ", split[0], err)
 	}
 	path := split[1]
-	fmt.Println(path)
 	version := split[2][5:8]
-	fmt.Println(version)
 	flags := getFlags(raw[strings.Index(raw, "\r\n")+1:])
 	message := new(RequestMessage)
 	message.Method = method
@@ -56,7 +54,5 @@ func ReadRequestMessage(raw string) *RequestMessage {
 
 func GenerateResponse(response ResponseMessage) []byte {
 	sprint := fmt.Sprintf("%s %d %s\n\n%s", response.Version, response.Code, "OK", response.Message)
-	fmt.Println(response.Code)
-	fmt.Println(sprint)
 	return []byte(sprint)
 }

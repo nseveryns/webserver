@@ -7,7 +7,7 @@ import (
 	"net"
 
 	"github.com/nseveryns/webserver/configuration"
-	"github.com/nseveryns/webserver/connections"
+	"github.com/nseveryns/webserver/provider"
 )
 
 var (
@@ -36,7 +36,7 @@ func startNetwork() {
 		if err != nil {
 			log.Fatal("Failed to accept new connection.", err)
 		}
-		wrapper := connections.Create(conn, config)
+		wrapper := provider.Create(conn, config)
 		go wrapper.HandleConnection()
 		defer wrapper.WrapUp()
 	}
